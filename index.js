@@ -59,6 +59,7 @@ const button=document.querySelector('.pizzas-button')
 const pizzaInput=document.querySelector('.pizzas-input')
 const pizzaContainer=document.querySelector('.pizzas-container')
 
+
 const getId=()=>{
     return parseInt(pizzaInput.value)
 }
@@ -76,10 +77,10 @@ const isValid=(idPizza)=>{
 const createCard=(pizza)=>{
   const {id,nombre,precio,ingredientes,imagen}=pizza
    return `
-   <div>
+   <div class='gotten-pizza'>
    <h2>${nombre}</h2>
    <img src=${imagen}></img>
-   <p>${precio}</p>
+   <p>$${precio} pesos</p>
    </div>
    `
 }
@@ -109,33 +110,50 @@ const renderCard=()=>{
   }else{
     const errorCard=document.createElement('div')
     errorCard.innerHTML=
-    `<h2>Esta pizza no existe</h2>`
+    `<h2>Esta pizza no existe.</h2>`
 
     pizzaContainer.appendChild(errorCard)
   }
 
 }
 
-// const noNumberError=()=>{
-//   if(typeof(pizzaInput.value)!=='number'){
-//     const error=document.createElement('div')
-//     error.innerHTML=`
-//     <h2>Ingrese solo números.</h2>
-//     `
-//     pizzaContainer.appendChild(error)
-//   }
-// }
+const cleanContainer=()=>{
+  pizzaContainer.innerHTML=''
+}
 
+const getLocalStorage=()=>{
+  let newPizza=JSON.parse(localStorage.getItem('pizza')) || 0
 
+  if(newPizza){
+    const pizzaCard=document.createElement('div')
+    pizzaCard.innerHTML=createCard(newPizza)
+ 
+    
+  pizzaContainer.appendChild(pizzaCard)
+  }
+}
+
+const saveLocalStorage=()=>{
+  let newPizza=pizzas.find((pizza)=>
+  pizza.id===getId())
+  if(newPizza){
+    localStorage.setItem('pizza',JSON.stringify(newPizza))
+
+  }else{
+    localStorage.removeItem('pizza')
+  }
+}
 
 
 
 
 
 const init=()=>{
+  getLocalStorage() 
   button.addEventListener('click',()=>{
+    cleanContainer()
     renderCard()
-
+    saveLocalStorage()
   })
 
 

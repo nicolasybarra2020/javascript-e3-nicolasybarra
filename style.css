@@ -33,4 +33,22 @@ body{
     width: 90%;
     min-height: 30px;
     border: 1px solid black;
+    margin: 1rem 0;
+    padding: 1rem 0;
 }
+
+.gotten-pizza{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+.gotten-pizza img{
+    width: 30%;
+    /* height: 100px; */
+    border: 1px solid black;
+    border-radius: 3px;
+}
+
+h2{text-align: center;}
